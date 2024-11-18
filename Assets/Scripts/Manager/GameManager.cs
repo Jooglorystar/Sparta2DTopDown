@@ -19,6 +19,7 @@ public enum UpgradeOption
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public ResumeButton resumeButton;
     [SerializeField] private string playerTag;
 
     [SerializeField] private CharacterStat defaultStat;
