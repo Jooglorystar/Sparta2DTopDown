@@ -138,6 +138,11 @@ public class GameManager : MonoBehaviour
 
     private void ProcessWaveConditions()
     {
+        if ((currentWaveIndex+1) % 20 == 10)
+        {
+            RandomDebuff();
+        }
+
         if (currentWaveIndex % 20 == 0)
         {
             RandomUpgrade();
@@ -150,13 +155,23 @@ public class GameManager : MonoBehaviour
 
         if (currentWaveIndex % 5 == 0)
         {
-            CreateReward();
+            //CreateReward();
         }
 
         if (currentWaveIndex % 3 == 0)
         {
             InceaseWaceSpawnCount();
         }
+    }
+
+    private void RandomDebuff()
+    {
+        float value = Random.Range(0f,0.5f);
+
+        float damage = value*playerHealthSystem.MaxHealth;
+
+        Debug.Log($"{damage}");
+        playerHealthSystem.ChangeHealth(-damage);
     }
 
     private void InceaseWaceSpawnCount()
