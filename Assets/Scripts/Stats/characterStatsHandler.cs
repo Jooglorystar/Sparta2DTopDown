@@ -27,11 +27,6 @@ public class CharacterStatHandler : MonoBehaviour
     {
         UpdateCharacterStat();
 
-        Initiate();
-    }
-
-    private void Initiate()
-    {
         if (baseStat.attackSO != null)
         {
             baseStat.attackSO = Instantiate(baseStat.attackSO);
@@ -41,6 +36,8 @@ public class CharacterStatHandler : MonoBehaviour
 
     private void UpdateCharacterStat()
     {
+        // TODO : 기본 능력치만 적용, 추후에 강화기능도 적용
+
         CurrentStat.statsChangeType = baseStat.statsChangeType;
         CurrentStat.maxHealth = baseStat.maxHealth;
         CurrentStat.speed = baseStat.speed;
@@ -68,18 +65,6 @@ public class CharacterStatHandler : MonoBehaviour
 
     private void ApplyStatModifier(CharacterStat modifier)
     {
-        Func<float, float, float> operation = StatModifierSwitch(modifier);
-
-        UpdateBasicStats(operation, modifier);
-        UpdateAttackStats(operation, modifier);
-        if (CurrentStat.attackSO is RangedAttackSO currentRanged && modifier.attackSO is RangedAttackSO newRanged)
-        {
-            UpdateRangedAttackStats(operation, currentRanged, newRanged);
-        }
-    }
-
-    private Func<float, float, float> StatModifierSwitch(CharacterStat modifier)
-    {
         Func<float, float, float> operation = modifier.statsChangeType switch
         {
             StatsChangeType.Add => (current, change) => current + change,
@@ -87,7 +72,12 @@ public class CharacterStatHandler : MonoBehaviour
             _ => (current, change) => change
         };
 
-        return operation;
+        UpdateBasicStats(operation, modifier);
+        UpdateAttackStats(operation, modifier);
+        if (CurrentStat.attackSO is RangedAttackSO currentRanged && modifier.attackSO is RangedAttackSO newRanged)
+        {
+            UpdateRangedAttackStats(operation, currentRanged, newRanged);
+        }
     }
 
     private void UpdateRangedAttackStats(Func<float, float, float> operation, RangedAttackSO currentRanged, RangedAttackSO newRanged)

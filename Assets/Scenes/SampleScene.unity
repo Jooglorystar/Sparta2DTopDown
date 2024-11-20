@@ -629,7 +629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStat:
     statsChangeType: 2
-    maxHealth: 100
+    maxHealth: 10
     speed: 5
     attackSO: {fileID: 11400000, guid: 857efbb391ddf5647901eaa0b061da36, type: 2}
   statModifiers: []
@@ -11489,7 +11489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324394b4013302e419973b552ee99850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resumeButton: {fileID: 1209639389}
+  resumeButton: {fileID: 0}
   playerTag: Player
   defaultStat:
     statsChangeType: 0
